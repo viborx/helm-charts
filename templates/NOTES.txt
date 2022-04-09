@@ -1,0 +1,25 @@
+CHART NAME: {{ .Chart.Name }}
+CHART VERSION: {{ .Chart.Version }}
+APP VERSION: {{ .Chart.AppVersion }}
+
+** Se está desplegando la bbdd Redis y Jupyter Notes
+** El proceso puede durar minutos. Por favor, sé paciente
+
+
+Se han creado dos pods (master y replica) con el cliente Redis y otros dos (hub y proxy).
+Puedes verlos ejecutando:
+   kubectl get pods
+   
+Para abrir el cliente redis dentro del master:
+      kubectl exec {{ .Release.Name }}-master-0 -i -t -- redis-cli --no-auth-warning -a UNED
+
+Si queremos abrir un terminal en ese pod:
+      kubectl exec {{ .Release.Name }}-master-0 -i -t -- bash
+
+Y si queremos abrir el Jupyter Notes:
+	1. Abrimos un nuevo terminal y ejecutamos:
+		minikube tunner
+	2. Buscamos la entrada de tipo (TYPE) LoadBalancer ejecutando:
+		kubectl get services
+	Si el campo EXTERNAL-IP tiene valor (127.0.0.1) abrimos esa ip un navegador 
+	
